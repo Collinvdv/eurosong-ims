@@ -1,27 +1,25 @@
 <template>
   <div id="app">
-    <!-- Nav -->
-    <Navigation />
+    <!-- Homepage -->
+    <Homepage
+      @showpage="showPage"
 
-    <!-- Content -->
-    <h1>
-      Eurosong festival
-    </h1>
-
-    <Counter />
-
-    <Feedback
-      v-for="(message, index) in messages"
-      :key = "index"
-      :message="message.message"
-      :classType="message.classType"
+      v-if="page == 'home'"
     />
 
-    <button @click="addMessage">
-      Add Message
-    </button>
+    <!-- Game -->
+    <Game
+      @showpage="showPage"
 
+      v-if="page == 'game'"
+    />
 
+    <!-- Ranking -->
+    <Ranking
+      @showpage="showPage"
+
+      v-if="page == 'ranking'"
+    />
   </div>
 </template>
 
@@ -29,40 +27,29 @@
 // Import of the whole styling for the app
 import style from './scss/style.scss';
 
-// Components
-import Navigation from "./components/Navigation.vue";
-import Counter from "./components/Counter.vue";
-import Feedback from "./components/Feedback.vue";
+// Pages
+import Homepage from "./pages/Homepage.vue";
+import Game from "./pages/Game.vue";
+import Ranking from "./pages/Ranking.vue";
 
 // App component
 export default {
   name: 'App',
   components: {
-    Navigation,
-    Counter,
-    Feedback
+    Game,
+    Ranking,
+    Homepage
   },
   data() {
     return {
-      messages: [
-        {
-          message: "Error, t is kapot",
-          classType: "warning"
-        },
-        {
-          message: "Great success",
-          classType: "success"
-        },
-      ]
+      page:  "home"
     }
   },
   methods: {
-    addMessage() {
-      this.messages.push({
-        message: "Hallo nieuwe feedback item",
-        classType: "success"
-      })
+    showPage(page) {
+      this.page = page;
     }
   }
 }
 </script>
+
