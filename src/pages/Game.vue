@@ -65,11 +65,6 @@
             // fetch the artists
             this.fetchSongs();
         },
-        watch: {
-            votes: function() {
-                console.log("votes changed");
-            }
-        },
         methods: {
             // navigation method
             goBack() {
@@ -159,7 +154,7 @@
                 const song = this.songs[this.activeSongIndex];
                 song.isVoted = true;
 
-                // post votes 
+                // post votes
                 this.postVotes(song, this.votes[index].points);
             }
         },
