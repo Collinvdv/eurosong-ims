@@ -26,9 +26,6 @@
 </template>
 
 <script>
-// Import of the whole styling for the app
-import style from './scss/style.scss';
-
 // Components
 import Navigation from "./components/Navigation.vue";
 import Counter from "./components/Counter.vue";
@@ -66,3 +63,7 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  @import "./scss/style.scss";
+</style>
