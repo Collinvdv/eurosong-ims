@@ -8,7 +8,11 @@
                 <div v-if="song.isVoted">
                     voted
                 </div>
-                {{song.title}} - {{song.artist.name}}
+                <div class="u-color-black">
+                    {{song.title}} - {{song.artist.name}}
+                </div>
+                <iframe :src="song.spotify" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            
             </div>
         </div>
 

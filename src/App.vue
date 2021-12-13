@@ -24,9 +24,6 @@
 </template>
 
 <script>
-// Import of the whole styling for the app
-import style from './scss/style.scss';
-
 // Pages
 import Homepage from "./pages/Homepage.vue";
 import Game from "./pages/Game.vue";
@@ -53,3 +50,6 @@ export default {
 }
 </script>
 
+<style lang="scss">
+  @import "./scss/style.scss";
+</style>
