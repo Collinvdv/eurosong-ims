@@ -9,7 +9,16 @@
 
         <Carousel
             :items="songs"
+            :activeIndex="activeSongIndex"
+
+            @change-index="changeActiveSongIndex"
         />
+
+        <div v-for="(vote, index) in votes" :key="index" >
+            <button @click="addVote(vote.points)" v-if="!vote.isVoted">
+                Add {{ vote.points}} points
+            </button>
+        </div>
     </div>
 </template>
 
@@ -25,7 +34,26 @@
         },
         data() {
             return {
-                songs: []
+                songs: [],
+                activeSongIndex: 0,
+                votes: [
+                    {
+                        points: 1,
+                        isVoted: false
+                    },
+                    {
+                        points: 2,
+                        isVoted: false
+                    },
+                    {
+                        points: 4,
+                        isVoted: false
+                    },
+                    {
+                        points: 8,
+                        isVoted: false
+                    },
+                ]
             }
         },
         mounted() {
@@ -76,6 +104,47 @@
                         // change data of songs, so everything will get rerenderd;
                         this.songs = songs;
                     });
+            },
+
+            postVote(points) {
+                const songId = this.songs[this.activeSongIndex].id;
+                const url = "http://webservies.be/eurosong/Votes";
+
+                fetch(url, {
+                    method: "POST",
+                    headers: {
+                        'Accept': 'application/json, text/plain',
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    },
+                    body: JSON.stringify({
+                        songID: songId,
+                        points: points,
+                    })
+                }).then((response) => {
+                    return response.json();
+                }).then((result) => {
+                    console.log(result);
+                })
+            },
+
+            // logic methods
+            changeActiveSongIndex(index) {
+                this.activeSongIndex = index;
+            },
+
+            addVote(points) {
+                let votes = this.votes;
+
+                // create new array when points is equal to given points, change isVoted state so it dissepears
+                votes.map((vote) => {
+                    if (vote.points == points) {
+                        vote.isVoted = true;
+                    }
+                    return vote;
+                });
+
+                // post it to the api
+                this.postVote(points);
             }
         }
     }
