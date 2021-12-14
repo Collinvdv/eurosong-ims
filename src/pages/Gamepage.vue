@@ -145,6 +145,14 @@
 
                 // post it to the api
                 this.postVote(points);
+
+                // check if all votes isVoted are set to true OR there are no false votes
+                let activeVotes = votes.filter((vote) => vote.isVoted == true);
+
+                // if everything is voted, redirect to ranking
+                if (activeVotes.length == votes.length) {
+                    this.goToPage("ranking");
+                }
             }
         }
     }
